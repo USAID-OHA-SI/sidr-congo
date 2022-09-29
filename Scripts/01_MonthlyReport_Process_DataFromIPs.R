@@ -11,17 +11,20 @@ library(tidyverse)
 library(readxl)
 library(vroom)
 library(janitor)
+library(here)
 
 # CONFIGS --------------------------------
 
-source("./Scripts/00_Config.R")
+#configs <- here("Scripts/00_Config.R")
 
-# GLABALS --------------------------------
+#source(configs)
 
-dir_mreports <- "Data/Monthly Report"
-dir_mr_fromips <- "Data/Monthly Report/From IPs"
-dir_mr_creports <- "Data/Monthly Report/Compiled Reports"
-dir_mr_datasets <- "Data/Monthly Report/Datasets"
+# GLOBALS --------------------------------
+
+dir_mreports <- here("Data/Monthly Report")
+dir_mr_fromips <- here("Data/Monthly Report/From IPs")
+dir_mr_creports <- here("Data/Monthly Report/Compiled Reports")
+dir_mr_datasets <- here("Data/Monthly Report/Datasets")
 
 # WORKFLOW ---------------------------------
 
@@ -57,6 +60,8 @@ read_submissions <- function(dta_folder, rep_period = NULL) {
   )
   
   ## Extract Mech names
+  print("Extracting Mechanism names")
+  
   mechs_submitted <- files_submitted %>%
     basename() %>%
     str_remove("Monthly Reporting - |Template for Monthly Reporting - ") %>%
@@ -64,6 +69,8 @@ read_submissions <- function(dta_folder, rep_period = NULL) {
     str_replace_all("-", "_")
   
   mechs_submitted
+  
+  print("Reading all sheets within all files")
   
   ## Read all sheets within all files
   dfs_submitted <- files_submitted %>%
@@ -98,7 +105,6 @@ read_submissions <- function(dta_folder, rep_period = NULL) {
   
   return(dfs_submitted)
 }
-
 
 #' Process submissions
 #'
@@ -457,14 +463,12 @@ export_partners_report <- function(df_proc, output_folder, rep_period = NULL) {
     })
 }
 
-
-
 # TEST ------------------------------------
 
 ## Test - read data from submissions
 ## Note: dfs > file[IM] > sheet[INDICATOR]
 dfs_subs <- read_submissions(dta_folder = "./Data/Monthly Report/From IPs",
-                             rep_period = "202006")
+                             rep_period = "202204")
 
 dfs_subs$IHAP_HK$HTS_TST_FAC %>% glimpse()
 
