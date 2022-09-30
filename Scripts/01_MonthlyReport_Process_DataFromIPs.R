@@ -98,7 +98,7 @@ read_submissions <- function(dta_folder, rep_period = NULL) {
       # Read the content of each sheets
       dfs <- shts %>%
         set_names(nm = str_replace_all(., " ", "_")) %>%
-        map(read_excel, path = file_sub, skip = 1)
+        map(read_excel, path = file_sub, skip = 0)
       
       return(dfs)
     })
@@ -130,7 +130,7 @@ process_submissions <- function(tab_df, tab_name) {
   ## Remove total rows (1st rows)
   df <- tab_df %>%
     clean_names() %>%
-    filter(!is.na(site_uid) & !str_detect(tolower(site_uid), "^totaux"))
+    filter(!is.na(site_uid) & high_volume != "Totaux")
   
   ## Diff. DSM has different exclusions: rm last 4
   if ( str_detect(tolower(tab_name), "^diff") ) {
@@ -473,7 +473,16 @@ dfs_subs <- read_submissions(dta_folder = "./Data/Monthly Report/From IPs",
 # add a unit test to verify that dfs_subs is not an empty list
 dfs_subs %>%
 assertr::verify(is_empty(dfs_subs) == FALSE)
+
+dfs_subs$SANRU$HTS_TST %>%
+  glimpse
   
+test_df <- dfs_subs$SANRU$HTS_TST %>%
+  clean_names() %>%
+  filter(!is.na(site_uid) & high_volume != "Totaux")
+
+# note: WIP just discovered col names are not being read in correctly in each tab, 
+# issue with process_submissions
 
 ## Test - process data
 ## 1 tab/file at the time
