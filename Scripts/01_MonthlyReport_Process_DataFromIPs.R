@@ -468,9 +468,12 @@ export_partners_report <- function(df_proc, output_folder, rep_period = NULL) {
 ## Test - read data from submissions
 ## Note: dfs > file[IM] > sheet[INDICATOR]
 dfs_subs <- read_submissions(dta_folder = "./Data/Monthly Report/From IPs",
-                             rep_period = "202204")
+                             rep_period = "202204") 
 
-dfs_subs$IHAP_HK$HTS_TST_FAC %>% glimpse()
+# add a unit test to verify that dfs_subs is not an empty list
+dfs_subs %>%
+assertr::verify(is_empty(dfs_subs) == FALSE)
+  
 
 ## Test - process data
 ## 1 tab/file at the time
