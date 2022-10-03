@@ -3,7 +3,7 @@
 ## LICENSE:  MIT
 ## PURPOSE:  Process Data submitted by IPs
 ## Date:     2020-08-04
-## Updated:  2020-09-27
+## Updated:  2022-10-03
 
 # LIBRARIES -------------------------------
 
@@ -316,7 +316,6 @@ process_submissions <- function(tab_df, tab_name) {
   return(df)
 }
 
-
 #' Calculate TX_NET_NEW
 #'
 #' @param df Datasets from all IPs as data frame
@@ -396,7 +395,6 @@ calculate_net_new <- function(df, dta_folder = "./Data/Monthly Report/Datasets")
   # return expanded data frame
   return(df)
 }
-
 
 #' Export processed files
 #'
@@ -512,8 +510,49 @@ df_proc %>%
 
 ## Test - Generate Net NEW
 ## Read TX_CURR from previous files and calculate TX_NET_NEW
-df_proc <- df_proc 
-calculate_net_new(., dta_folder = "./Data/Monthly Report/Datasets")
+df_proc <- df_proc %>%
+calculate_net_new(dta_folder = "./Data/Monthly Report/Datasets")
+
+
+# Get current period
+curr_pd <- df_proc %>%
+  filter(!is.na(period)) %>%
+  distinct(period) %>%
+  pull()
+
+print(curr_pd)
+
+# Identify previous period
+prev_pd <- as.character(as.integer(curr_pd) - 1)
+
+print(prev_pd)
+
+# Locate processed files from previous period
+files_processed <- list.files(
+  path = here("./Data/Monthly Report/Datasets", prev_pd),
+  pattern = "^DRC_Dataset \\d{6} - .*.csv$",
+  full.names = TRUE
+)
+
+# it's looking for .csv files from the previous period, need those and asked SM
+
+# Read only individual files
+files_processed <- files_processed[files_processed %>% str_detect(".ALL.csv$", negate = TRUE)]
+
+# Label for new indicator: TX_NET_NEW
+lbl_tx_curr <- "TX_CURR (N. DSD. Age/Sex/HIVStatus). Receiving ART"
+lbl_tx_net_new <- "TX_NET_NEW (N. DSD. Age/Sex/HIVStatus). New on ART"
+
+# Extract previous TX_CURR data
+df_tx_curr <- files_processed %>%
+  map_dfr(vroom) %>%
+  clean_names() %>%
+  select(-period) %>%
+  filter(str_detect(indicator, "^TX_CURR")) %>%
+  mutate(high_volume = as.character(high_volume)) %>%
+  mutate(indicator = "tx_curr_prev") %>%              # TX_CURR for previous period
+  spread(indicator, value)
+
 
 # stopped here on Friday: 
 
@@ -527,7 +566,7 @@ calculate_net_new(., dta_folder = "./Data/Monthly Report/Datasets")
 #   ! Can't subset columns that don't exist.
 # ✖ Column `period` doesn't exist.
   
-# Breaking at line 16 in calculate_net_new
+# Breaking at line 45 in calculate_net_new
 
 df_proc %>% glimpse()
 
