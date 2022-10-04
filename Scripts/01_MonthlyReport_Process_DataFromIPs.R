@@ -607,12 +607,12 @@ dfs_compiled
 dfs_compiled$Dataset %>% glimpse()
 
 dfs_compiled$Dataset %>%
-  distinct(indicator) %>%
+  distinct(Indicator) %>%
   pull()
 
 ## Processed datasets
 data_processed <- list.files(
-  path = here(dir_mr_datasets, "202005"),
+  path = here(dir_mr_datasets, curr_pd),
   pattern = "^DRC_Dataset \\d{6} - .*.csv$",
   full.names = TRUE
 ) %>%
