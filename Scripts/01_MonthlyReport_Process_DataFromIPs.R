@@ -524,14 +524,15 @@ prev_pd <- as.character(as.integer(curr_pd) - 1)
 
 print(prev_pd)
 
+# file path for datasets
+prev_data_path <- here("sidr-congo/Data/Monthly Report/Datasets")
+
 # Locate processed files from previous period
 files_processed <- list.files(
-  path = here("./Data/Monthly Report/Datasets", prev_pd),
+  path = glue("{prev_data_path}/{prev_pd}"),
   pattern = "^DRC_Dataset \\d{6} - .*.csv$",
   full.names = TRUE
 )
-
-# it's looking for .csv files from the previous period, need those and asked SM
 
 # Read only individual files
 files_processed <- files_processed[files_processed %>% str_detect(".ALL.csv$", negate = TRUE)]
@@ -550,27 +551,12 @@ df_tx_curr <- files_processed %>%
   mutate(indicator = "tx_curr_prev") %>%              # TX_CURR for previous period
   spread(indicator, value)
 
-
-# stopped here on Friday: 
-
-## Test - Generate Net NEW
-#   > ## Read TX_CURR from previous files and calcuate TX_NET_NEW
-#   > df_proc <- df_proc %>%
-#   +   calculate_net_new(., dta_folder = "./Data/Monthly Report/Datasets")
-# [1] 202204
-# [1] "202203"
-# Error in `select()`:
-#   ! Can't subset columns that don't exist.
-# ✖ Column `period` doesn't exist.
-  
-# Breaking at line 45 in calculate_net_new
-
 df_proc %>% glimpse()
 
 ## Test - Export ip report data
 export_partners_report(df_proc,
-                       output_folder = "./Data/Monthly Report/Datasets",
-                       rep_period = "202006")
+                       output_folder = here("sidr-congo/Data/Monthly Report/Datasets"),
+                       rep_period = "202204")
 
 # DATA -----------------------------------
 
