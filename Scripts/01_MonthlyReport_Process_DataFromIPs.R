@@ -21,10 +21,10 @@ library(here)
 
 # GLOBALS --------------------------------
 
-dir_mreports <- here("Data/Monthly Report")
-dir_mr_fromips <- here("Data/Monthly Report/From IPs")
-dir_mr_creports <- here("Data/Monthly Report/Compiled Reports")
-dir_mr_datasets <- here("Data/Monthly Report/Datasets")
+dir_mreports <- here("sidr-congo/Data/Monthly Report")
+dir_mr_fromips <- here("sidr-congo/Data/Monthly Report/From IPs")
+dir_mr_creports <- here("sidr-congo/Data/Monthly Report/Compiled Reports")
+dir_mr_datasets <- here("sidr-congo/Data/Monthly Report/Datasets")
 
 # WORKFLOW ---------------------------------
 
@@ -512,7 +512,6 @@ df_proc %>%
 ## Read TX_CURR from previous files and calculate TX_NET_NEW
 df_proc <- df_proc %>%
 calculate_net_new(dta_folder = "./Data/Monthly Report/Datasets")
-
 
 # Get current period
 curr_pd <- df_proc %>%
