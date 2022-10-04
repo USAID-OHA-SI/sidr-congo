@@ -573,31 +573,28 @@ files_compiled
 sheets_compiled <- files_compiled %>% excel_sheets()
 
 sheets_compiled
-#
-# [1] "HTS_TST_FAC"
-# [2] "HTS_TST_COM"
-# [3] "HTS_INDEX_FAC"
-# [4] "HTS_INDEX_COM"
-# [5] "HTS_TST_Mb_Mod"
-# [6] "TX_NEW"
-# [7] "TX_CURR"
-# [8] "TB_PREV"
-# [9] "Diff. Delivery Service Models"
-# [10] "VL"
-# [11] "HTS_TST_FAC_1"
-# [12] "HTS_TST_COM_1"
-# [13] "HTS_INDEX_FAC_1"
-# [14] "HTS_INDEX_COM_1"
-# [15] "HTS_TST_Mb_Mod_1"
-# [16] "TX_NEW_1"
-# [17] "TX_CURR_1"
-# [18] "TX_NET_NEW Pivot"
-# [19] "TX_NET_NEW"
-# [20] "TX_NET_NEW_1"
-# [21] "TB_PREV_1"
-# [22] "DSD_1"
-# [23] "VL_1"
-# [24] "Dataset"
+# [1] "Dataset"          
+# [2] "HTS_TST"          
+# [3] "HTS_INDEX"        
+# [4] "HTS_TST_Mb_Mod"  
+# [5] "TX_NEW"           
+# [6] "TX_CURR"          
+# [7] "TX_MMD"           
+# [8] "PrEP_NEW"        
+# [9] "TB_PREV"          
+# [10] "VL"               
+# [11] "HTS_TST_1"        
+# [12] "HTS_INDEX_1"     
+# [13] "HTS_TST_Mb_Mod_1" 
+# [14] "TX_NEW_1"         
+# [15] "TX_CURR_1"        
+# [16] "TX_NET_NEW Pivot"
+# [17] "TX_NET_NEW"       
+# [18] "TX_NET_NEW_1"     
+# [19] "TX_MMD_1"         
+# [20] "PrEP_NEW_1"      
+# [21] "TB_PREV_1"        
+# [22] "VL_1"
 
 ## read all tabs from compiled file
 dfs_compiled <- files_compiled %>%
@@ -634,18 +631,21 @@ data_processed %>% colnames()
 # [7] "high_volume"            "indicator"
 # [9] "age"                    "sex"
 # [11] "result"                 "reporting_level"
-# [13] "Value"
+# [13] "otherdisaggregate"      "value"
+
+## Do we care about NA data?
 
 ## Age Groups
 data_processed %>% distinct(age) %>% pull()
-# [1] "<01"         "01-04"       "05-09"       "10-14"
-# [5] "15-19"       "20-24"       "25-29"       "30-34"
-# [9] "35-39"       "40-44"       "45-49"       "50+"
-# [13] "Unknown Age" "<15"         "15+"         NA
+# [1] "<01"         "01-04"       "05-09"       "10-14"       "15-19"       "20-24"      
+# [7] "25-29"       "30-34"       "35-39"       "40-44"       "45-49"       "50-54"      
+# [13] "55-59"       "60-64"       "65"          "Unknown Age" "50+"         "3-months"   
+# [19] "3-5"         "6-months"    NA            "<15"         "15+" 
 
-## Age Groups
+## Sex Groups
 data_processed %>% distinct(sex) %>% pull()
-#[1] "Female" "Male"   NA
+# [1] "Female" "Male"   "2"      NA   
+# Sex == 2 comes from all IPs, mostly in youngest age groups, is that a concern?
 
 ## Results
 data_processed %>% distinct(result) %>% pull()
@@ -660,45 +660,22 @@ data_processed %>%
   distinct(indicator) %>%
   pull()
 
-## HTS [Age/Sex/HIVStatus]
-# [1] "HTS_TST_POS (N. DSD). HTS received results"
-# [2] "HTS_TST_NEG (N. DSD). HTS received results"
-# [3] "HTS_INDEX_POS (N. DSD). HTS received results"
-# [4] "HTS_INDEX_NEG (N. DSD). HTS received results"
-# [5] "HTS_TST_POS (N. DSD. MbMod). HTS received results"
-# [6] "HTS_TST_NEG (N. DSD. MbMod). HTS received results"
-## TX [Age/Sex]
-# [7] "TX_NEW (N. DSD. Age/Sex/HIVStatus). New on ART"
+# [1] "TX_NET_NEW (N. DSD. Age/Sex/HIVStatus). New on ART"
+# [2] "HTS_TST"                                           
+# [3] "HTS_INDEX_POS (N. DSD). HTS received results"      
+# [4] "HTS_INDEX_NEG (N. DSD). HTS received results"      
+# [5] "HTS_TST_POS (N. DSD. MbMod). HTS received results" 
+# [6] "HTS_TST_NEG (N. DSD. MbMod). HTS received results" 
+# [7] "TX_NEW (N. DSD. Age/Sex/HIVStatus). New on ART"    
 # [8] "TX_CURR (N. DSD. Age/Sex/HIVStatus). Receiving ART"
-# [9] "TX_NET_NEW (N. DSD. Age/Sex/HIVStatus). New on ART"
-## TB [Mod/Age/Sex]
-# [10] "IPT Newly enrolled on ART"
-# [11] "IPT Previously enrolled on ART"
-## Diff. DSM
-# [12] "Enrolled in PODI"
-# [13] "Enrolled in Fast Track"
-# [14] "Enrolled in Com ART"
-# [15] "New Enrolled in PODI"
-# [16] "New Enrolled in Fast Track"
-# [17] "New Enrolled in Com ART"
-## CV
-# [18] "Expected Elligible for the VL"
-# [19] "Collected Specimens"
-# [20] "Collected Results"
-# [21] "VL Suppressed"
-## Diff. DSM
-# [22] "Enrolled in Adherence Club"
-# [23] "New Enrolled in Adherence Club"
-# [24] "Non-Elligible Yet"
-# [25] "Non Stable Patients"
-# [26] "Stable Patients who refused to adhere to a model"
-## TB [Mod/Age/Sex]
-# [27] "Alternative TPT Regiment Newly enrolled on ART"
-# [28] "Alternative TPT Regiment Previously enrolled on ART"
+# [9] "TX_MMD"                                            
+# [10] "PrEP_NEW"                                          
+# [11] "TB_PREV_Num"                                       
+# [12] "VL"
 
 ## Raw data
 files_submitted <- list.files(
-  path = here(dir_mr_fromips, "202006"),
+  path = here(dir_mr_fromips, curr_pd),
   pattern = ".xlsx",
   full.names = TRUE
 )
