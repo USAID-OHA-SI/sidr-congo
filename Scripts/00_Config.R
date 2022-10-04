@@ -25,15 +25,6 @@ dir_raster <- "../../GEODATA/RASTER"
 
 # FILES
 
-list.files(
-        path = "./_secrets",
-        pattern = ".R$",
-        full.names = TRUE
-    ) %>%
-    source()
-
-
-
 #' @title Get Terrain Raster dataset
 #'
 #' @param terr_path path to terrain raster file
