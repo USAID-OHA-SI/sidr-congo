@@ -476,8 +476,6 @@ assertr::verify(is_empty(dfs_subs) == FALSE)
 
 dfs_subs$SANRU$HTS_TST %>%
   glimpse
-  
-test_df <- dfs_subs$SANRU$HTS_TST 
 
 ## Test - process data
 ## 1 tab/file at the time
@@ -511,7 +509,7 @@ df_proc %>%
 ## Test - Generate Net NEW
 ## Read TX_CURR from previous files and calculate TX_NET_NEW
 df_proc <- df_proc %>%
-calculate_net_new(dta_folder = "./Data/Monthly Report/Datasets")
+calculate_net_new(dta_folder = here("sidr-congo/Data/Monthly Report/Datasets"))
 
 # Get current period
 curr_pd <- df_proc %>%
