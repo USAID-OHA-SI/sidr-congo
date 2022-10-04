@@ -467,7 +467,7 @@ export_partners_report <- function(df_proc, output_folder, rep_period = NULL) {
 
 ## Test - read data from submissions
 ## Note: dfs > file[IM] > sheet[INDICATOR]
-dfs_subs <- read_submissions(dta_folder = "./Data/Monthly Report/From IPs",
+dfs_subs <- read_submissions(dta_folder = here("sidr-congo/Data/Monthly Report/From IPs"),
                              rep_period = "202204") 
 
 # add a unit test to verify that dfs_subs is not an empty list
