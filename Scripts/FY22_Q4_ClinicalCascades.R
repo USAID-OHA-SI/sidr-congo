@@ -33,10 +33,6 @@
     file_path <- return_latest(folderpath = merdata,
                                pattern = "Genie_PSNU_IM_Democratic_Republic_of_the_Congo")
 
-    # don't know what this is, need to ask TE
-    # plhiv_path <- return_latest(folderpath = merdata,
-    #                            pattern = "SUBNAT")
-
     # Grab metadata
     get_metadata(file_path)
 
@@ -46,14 +42,11 @@
         filter(funding_agency == "USAID",
                fiscal_year == "2022")
 
-    janitor::tabyl(df_msd$snu1)
-
 # MUNGE -------------------------------------------------------------------
 
     # return standard cascade data
     return_cascade(df_msd, 1) %>% prinf()
-    return_cascade(df_msd, 1) %>%
-        prinf()
+    return_cascade(df_msd, 1) %>% prinf()
 
     # Generate all cascade plots for just USAID
     batch_cascade_plot(df_msd,
