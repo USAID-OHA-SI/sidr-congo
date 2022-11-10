@@ -6,90 +6,95 @@
 # DATE:     2022-11-10
 # UPDATED:  2022-11-10
 
-# DEPENDENCIES ------------------------------------------------------------
+# DEPENDENCIES -----------------------------------------------------------------
 
 # Libraries
-    library(gagglr)
-    library(tidyverse)
-    library(scales)
-    library(sf)
-    library(glue)
-    library(extrafont)
-    library(tidytext)
-    library(patchwork)
-    library(ggtext)
-    library(selfdestructin5)
-    library(gt)
-    library(cascade)
-    library(ggpattern)
+library(gagglr)
+library(tidyverse)
+library(scales)
+library(sf)
+library(glue)
+library(extrafont)
+library(tidytext)
+library(patchwork)
+library(ggtext)
+library(selfdestructin5)
+library(gt)
+library(cascade)
+library(ggpattern)
 
-# GLOBAL VARIABLES --------------------------------------------------------
+# GLOBAL VARIABLES -------------------------------------------------------------
 
-    ref_id <- "fab3899d"
+ref_id <- "fab3899d"
 
-    # SI specific paths/functions
-    load_secrets()
-    merdata <- file.path(glamr::si_path("path_msd"))
-    file_path <- return_latest(folderpath = merdata,
-                               pattern = "Genie_PSNU_IM_Democratic_Republic_of_the_Congo")
+# SI specific paths/functions
+load_secrets()
+merdata <- file.path(glamr::si_path("path_msd"))
+file_path <- return_latest(
+  folderpath = merdata,
+  pattern = "Genie_PSNU_IM_Democratic_Republic_of_the_Congo")
 
-    # Grab metadata
-    get_metadata(file_path)
+# Grab metadata
+get_metadata(file_path)
 
-# IMPORT ------------------------------------------------------------------
+# IMPORT -----------------------------------------------------------------------
 
-    df_msd <- read_msd(file_path) %>%
-        filter(funding_agency == "USAID",
-               fiscal_year == "2022")
+df_msd <- read_msd(file_path) %>%
+  filter(
+    funding_agency == "USAID",
+    fiscal_year == "2022")
 
-# MUNGE -------------------------------------------------------------------
+# MUNGE ------------------------------------------------------------------------
 
-    # return standard cascade data
-    return_cascade(df_msd, 1) %>% prinf()
-    return_cascade(df_msd, 1) %>% prinf()
+# return standard cascade data
+return_cascade(df_msd, 1) %>% prinf()
+return_cascade(df_msd, 1) %>% prinf()
 
-    # Generate all cascade plots for just USAID
-    batch_cascade_plot(df_msd,
-                       imgpath = "Images/cascade/usaid", imgtype =".png")
+# Generate all cascade plots for just USAID
+batch_cascade_plot(df_msd,
+  imgpath = "Images/cascade/usaid", imgtype = ".png")
 
-    # Return Standard Cascade Plots for each SNU
+# Return Standard Cascade Plots for each SNU
 
-    # Haut Katanga
+# Haut Katanga
 
-    return_cascade_plot(df_msd %>% filter(snu1 == "Haut Katanga"), export = F)
+return_cascade_plot(df_msd %>%
+                    filter(snu1 == "Haut Katanga"),
+                    export = F)
 
-    # Un-comment and enter the name of the plot you selected in between " and the first _
-    # ex: If you select plot 13, plot_file_name = glue("KP_Cascade_{metadata$curr_pd})
-    plot_file_name = glue("cascade/Haut_Katanga/Haut_Katanga_Standard_Cascade_{metadata$curr_pd}")
+# Un-comment and enter the name of the plot you selected in between " and the first _
+# ex: If you select plot 13, plot_file_name = glue("KP_Cascade_{metadata$curr_pd})
+plot_file_name_HK <- glue("cascade/Haut_Katanga/Haut_Katanga_Standard_Cascade_{metadata$curr_pd}")
 
-    # need to be able to adjust the height and width
-    si_save(glue("Images/{plot_file_name}_{ref_id}.png"),
-            height = 9,
-            width = 25)
+# need to be able to adjust the height and width
+si_save(glue("Images/{plot_file_name_HK}_{ref_id}.png"),
+  height = 9, width = 25)
 
-    # Kinshasa
+# Kinshasa
 
-    return_cascade_plot(df_msd %>% filter(snu1 == "Kinshasa"), export = F)
+return_cascade_plot(df_msd %>%
+                    filter(snu1 == "Kinshasa"),
+                    export = F)
 
-    # Un-comment and enter the name of the plot you selected in between " and the first _
-    # ex: If you select plot 13, plot_file_name = glue("KP_Cascade_{metadata$curr_pd})
-    plot_file_name = glue("cascade/Kinshasa/Kinshasa_Standard_Cascade_{metadata$curr_pd}")
+# Un-comment and enter the name of the plot you selected in between " and the first _
+# ex: If you select plot 13, plot_file_name = glue("KP_Cascade_{metadata$curr_pd})
+plot_file_name_K <- glue("cascade/Kinshasa/Kinshasa_Standard_Cascade_{metadata$curr_pd}")
 
-    # need to be able to adjust the height and width
-    si_save(glue("Images/{plot_file_name}_{ref_id}.png"),
-            height = 9,
-            width = 20)
+# need to be able to adjust the height and width
+si_save(glue("Images/{plot_file_name_K}_{ref_id}.png"),
+  height = 9, width = 20)
 
-    # Lualaba
+# Lualaba
 
-    return_cascade_plot(df_msd %>% filter(snu1 == "Lualaba"), export = F)
+return_cascade_plot(df_msd %>%
+                    filter(snu1 == "Lualaba"),
+                    export = F)
 
-    # Un-comment and enter the name of the plot you selected in between " and the first _
-    # ex: If you select plot 13, plot_file_name = glue("KP_Cascade_{metadata$curr_pd})
-    plot_file_name = glue("cascade/Lualaba/Lualaba_Standard_Cascade_{metadata$curr_pd}")
+# Un-comment and enter the name of the plot you selected in between " and the first _
+# ex: If you select plot 13, plot_file_name = glue("KP_Cascade_{metadata$curr_pd})
+plot_file_name_L <- glue("cascade/Lualaba/Lualaba_Standard_Cascade_{metadata$curr_pd}")
 
-    # need to be able to adjust the height and width
-    si_save(glue("Images/{plot_file_name}_{ref_id}.png"),
-            height = 9,
-            width = 20)
+# need to be able to adjust the height and width
+si_save(glue("Images/{plot_file_name_L}_{ref_id}.png"),
+  height = 9, width = 20)
 # end
