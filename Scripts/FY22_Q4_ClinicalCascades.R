@@ -28,11 +28,11 @@ library(ggpattern)
 ref_id <- "fab3899d"
 
 # SI specific paths/functions
-load_secrets()
+
 merdata <- file.path(glamr::si_path("path_msd"))
 file_path <- return_latest(
   folderpath = merdata,
-  pattern = "Genie_PSNU_IM_Democratic_Republic_of_the_Congo")
+  pattern = "Genie_SITE_IM_Democratic_Republic_of_the_Congo")
 
 # Grab metadata
 get_metadata(file_path)
@@ -46,18 +46,31 @@ df_msd <- read_msd(file_path) %>%
 
 # MUNGE ------------------------------------------------------------------------
 
-# return standard cascade data
-return_cascade(df_msd, 1) %>% prinf()
-return_cascade(df_msd, 1) %>% prinf()
+# return standard cascade (1) data as an example
+std_casc_df <- return_cascade(df_msd, 1)
 
-# Generate all cascade plots for just USAID
+# Generate all cascade plots for just USAID, most recent Q
 batch_cascade_plot(df_msd,
   imgpath = "Images/cascade/usaid", imgtype = ".png")
 
-# Return Standard Cascade Plots for each SNU
+# Return Standard Cascade Plots for each SNU,
+# Note: these are all the plots you can choose from
+# Please enter the cascade you would like to create.
+# 1:Standard
+# 2:Standard Female
+# 3:Standard Male
+# 4:Pediatric
+# 5:Pediatric Female
+# 6:Pediatric Male
+# 7:AYP (15-24 years old)
+# 8:AYP Female
+# 9:AYP Male
+# 10:Adults
+# 11:Adults Female
+# 12:Adults Male
+# 13:KP
 
 # Haut Katanga
-
 return_cascade_plot(df_msd %>%
                     filter(snu1 == "Haut Katanga"),
                     export = F)
@@ -68,7 +81,7 @@ plot_file_name_HK <- glue("cascade/Haut_Katanga/Haut_Katanga_Standard_Cascade_{m
 
 # need to be able to adjust the height and width
 si_save(glue("Images/{plot_file_name_HK}_{ref_id}.png"),
-  height = 9, width = 25)
+  height = 9, width = 26)
 
 # Kinshasa
 
