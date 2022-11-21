@@ -76,12 +76,12 @@ return_cascade_plot(df_msd %>%
 
 # Un-comment and enter the name of the plot you selected in between " and the first _
 # ex: If you select plot 13, plot_file_name = glue("KP_Cascade_{metadata$curr_pd})
-plot_file_name_HK <- glue("cascade/Haut_Katanga/Haut_Katanga_Standard_Cascade_{metadata$curr_pd}")
-# plot_file_name_HK <- glue("cascade/Haut_Katanga/Haut_Katanga_KeyPopulations_{metadata$curr_pd}")
+# plot_file_name_HK <- glue("cascade/Haut_Katanga/Haut_Katanga_Standard_Cascade_{metadata$curr_pd}")
+plot_file_name_HK <- glue("cascade/Haut_Katanga/Haut_Katanga_KeyPopulations_{metadata$curr_pd}")
 
 # need to be able to adjust the height and width
 si_save(glue("Images/{plot_file_name_HK}_{ref_id}.png"),
-        scale = 1.2)
+        height = 8, width = 15)
 
 # Kinshasa
 
@@ -91,12 +91,12 @@ return_cascade_plot(df_msd %>%
 
 # Un-comment and enter the name of the plot you selected in between " and the first _
 # ex: If you select plot 13, plot_file_name = glue("KP_Cascade_{metadata$curr_pd})
-plot_file_name_K <- glue("cascade/Kinshasa/Kinshasa_Standard_Cascade_{metadata$curr_pd}")
-# plot_file_name_K <- glue("cascade/Kinshasa/Kinshasa_KeyPopulations_{metadata$curr_pd}")
+# plot_file_name_K <- glue("cascade/Kinshasa/Kinshasa_Standard_Cascade_{metadata$curr_pd}")
+plot_file_name_K <- glue("cascade/Kinshasa/Kinshasa_KeyPopulations_{metadata$curr_pd}")
 
 # need to be able to adjust the height and width
 si_save(glue("Images/{plot_file_name_K}_{ref_id}.png"),
-        scale = .9)
+        height = 8, width = 15)
 
 # Lualaba
 
@@ -106,11 +106,11 @@ return_cascade_plot(df_msd %>%
 
 # Un-comment and enter the name of the plot you selected in between " and the first _
 # ex: If you select plot 13, plot_file_name = glue("KP_Cascade_{metadata$curr_pd})
-plot_file_name_L <- glue("cascade/Lualaba/Lualaba_Standard_Cascade_{metadata$curr_pd}")
-# plot_file_name_L <- glue("cascade/Lualaba/Lualaba_KeyPopulations_{metadata$curr_pd}")
+# plot_file_name_L <- glue("cascade/Lualaba/Lualaba_Standard_Cascade_{metadata$curr_pd}")
+plot_file_name_L <- glue("cascade/Lualaba/Lualaba_KeyPopulations_{metadata$curr_pd}")
 
 
 # need to be able to adjust the height and width
 si_save(glue("Images/{plot_file_name_L}_{ref_id}.png"),
-        scale = 1.3)
+        height = 8, width = 15)
 # end
