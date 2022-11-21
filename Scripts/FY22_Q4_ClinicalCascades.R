@@ -41,7 +41,6 @@ get_metadata(file_path)
 
 df_msd <- read_msd(file_path) %>%
   filter(
-    funding_agency == "USAID",
     fiscal_year == "2022")
 
 # MUNGE ------------------------------------------------------------------------
@@ -49,9 +48,9 @@ df_msd <- read_msd(file_path) %>%
 # return standard cascade (1) data as an example
 std_casc_df <- return_cascade(df_msd, 1)
 
-# Generate all cascade plots for just USAID, most recent Q
+# Generate all cascade plots for country-wide data, most recent Q
 batch_cascade_plot(df_msd,
-  imgpath = "Images/cascade/usaid", imgtype = ".png")
+  imgpath = "Images/cascade/all", imgtype = ".png")
 
 # Return Standard Cascade Plots for each SNU,
 # Note: these are all the plots you can choose from
@@ -78,10 +77,11 @@ return_cascade_plot(df_msd %>%
 # Un-comment and enter the name of the plot you selected in between " and the first _
 # ex: If you select plot 13, plot_file_name = glue("KP_Cascade_{metadata$curr_pd})
 plot_file_name_HK <- glue("cascade/Haut_Katanga/Haut_Katanga_Standard_Cascade_{metadata$curr_pd}")
+# plot_file_name_HK <- glue("cascade/Haut_Katanga/Haut_Katanga_KeyPopulations_{metadata$curr_pd}")
 
 # need to be able to adjust the height and width
 si_save(glue("Images/{plot_file_name_HK}_{ref_id}.png"),
-  height = 9, width = 26)
+        scale = 1.2)
 
 # Kinshasa
 
@@ -92,10 +92,11 @@ return_cascade_plot(df_msd %>%
 # Un-comment and enter the name of the plot you selected in between " and the first _
 # ex: If you select plot 13, plot_file_name = glue("KP_Cascade_{metadata$curr_pd})
 plot_file_name_K <- glue("cascade/Kinshasa/Kinshasa_Standard_Cascade_{metadata$curr_pd}")
+# plot_file_name_K <- glue("cascade/Kinshasa/Kinshasa_KeyPopulations_{metadata$curr_pd}")
 
 # need to be able to adjust the height and width
 si_save(glue("Images/{plot_file_name_K}_{ref_id}.png"),
-  height = 9, width = 20)
+        scale = .9)
 
 # Lualaba
 
@@ -106,8 +107,10 @@ return_cascade_plot(df_msd %>%
 # Un-comment and enter the name of the plot you selected in between " and the first _
 # ex: If you select plot 13, plot_file_name = glue("KP_Cascade_{metadata$curr_pd})
 plot_file_name_L <- glue("cascade/Lualaba/Lualaba_Standard_Cascade_{metadata$curr_pd}")
+# plot_file_name_L <- glue("cascade/Lualaba/Lualaba_KeyPopulations_{metadata$curr_pd}")
+
 
 # need to be able to adjust the height and width
 si_save(glue("Images/{plot_file_name_L}_{ref_id}.png"),
-  height = 9, width = 20)
+        scale = 1.3)
 # end
