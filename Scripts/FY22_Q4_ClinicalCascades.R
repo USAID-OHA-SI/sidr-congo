@@ -29,18 +29,27 @@ ref_id <- "fab3899d"
 
 # SI specific paths/functions
 
-merdata <- file.path(glamr::si_path("path_msd"))
-file_path <- return_latest(
-  folderpath = merdata,
-  pattern = "Genie_SITE_IM_Democratic_Republic_of_the_Congo")
+# metadata
+path <- si_path() %>%
+    return_latest("Genie_PSNU_IM_Democratic_Republic_of_the_Congo")
 
-# Grab metadata
-get_metadata(file_path)
+get_metadata(path)
+
+# PSNU
+psnu_df <- si_path() %>%
+    return_latest("Genie_PSNU_IM_Democratic_Republic_of_the_Congo") %>%
+    read_msd()
+
+genie_path <- path
+curr_fy <- metadata$curr_fy
+curr_pd <-metadata$curr_pd
+data_source <- metadata$source
 
 # IMPORT -----------------------------------------------------------------------
 
-df_msd <- read_msd(file_path) %>%
+df_msd <- psnu_df %>%
   filter(
+    funding_agency == "USAID",
     fiscal_year == "2022")
 
 # MUNGE ------------------------------------------------------------------------
@@ -50,7 +59,7 @@ std_casc_df <- return_cascade(df_msd, 1)
 
 # Generate all cascade plots for country-wide data, most recent Q
 batch_cascade_plot(df_msd,
-  imgpath = "Images/cascade/all", imgtype = ".png")
+  imgpath = "Images/cascade/usaid", imgtype = ".png")
 
 # Return Standard Cascade Plots for each SNU,
 # Note: these are all the plots you can choose from
@@ -70,47 +79,20 @@ batch_cascade_plot(df_msd,
 # 13:KP
 
 # Haut Katanga
-return_cascade_plot(df_msd %>%
-                    filter(snu1 == "Haut Katanga"),
-                    export = F)
-
-# Un-comment and enter the name of the plot you selected in between " and the first _
-# ex: If you select plot 13, plot_file_name = glue("KP_Cascade_{metadata$curr_pd})
-# plot_file_name_HK <- glue("cascade/Haut_Katanga/Haut_Katanga_Standard_Cascade_{metadata$curr_pd}")
-plot_file_name_HK <- glue("cascade/Haut_Katanga/Haut_Katanga_KeyPopulations_{metadata$curr_pd}")
-
-# need to be able to adjust the height and width
-si_save(glue("Images/{plot_file_name_HK}_{ref_id}.png"),
-        height = 8, width = 15)
+batch_cascade_plot(df_msd %>%
+                       filter(snu1 == "Haut Katanga"),
+                   imgpath = "Images/cascade/Haut_katanga/usaid", imgtype = ".png")
 
 # Kinshasa
+batch_cascade_plot(df_msd %>%
+                       filter(snu1 == "Kinshasa"),
+                   imgpath = "Images/cascade/Kinshasa/usaid", imgtype = ".png")
 
-return_cascade_plot(df_msd %>%
-                    filter(snu1 == "Kinshasa"),
-                    export = F)
-
-# Un-comment and enter the name of the plot you selected in between " and the first _
-# ex: If you select plot 13, plot_file_name = glue("KP_Cascade_{metadata$curr_pd})
-# plot_file_name_K <- glue("cascade/Kinshasa/Kinshasa_Standard_Cascade_{metadata$curr_pd}")
-plot_file_name_K <- glue("cascade/Kinshasa/Kinshasa_KeyPopulations_{metadata$curr_pd}")
-
-# need to be able to adjust the height and width
-si_save(glue("Images/{plot_file_name_K}_{ref_id}.png"),
-        height = 8, width = 15)
 
 # Lualaba
-
-return_cascade_plot(df_msd %>%
-                    filter(snu1 == "Lualaba"),
-                    export = F)
-
-# Un-comment and enter the name of the plot you selected in between " and the first _
-# ex: If you select plot 13, plot_file_name = glue("KP_Cascade_{metadata$curr_pd})
-# plot_file_name_L <- glue("cascade/Lualaba/Lualaba_Standard_Cascade_{metadata$curr_pd}")
-plot_file_name_L <- glue("cascade/Lualaba/Lualaba_KeyPopulations_{metadata$curr_pd}")
+batch_cascade_plot(df_msd %>%
+                       filter(snu1 == "Lualaba"),
+                   imgpath = "Images/cascade/Lualaba/usaid", imgtype = ".png")
 
 
-# need to be able to adjust the height and width
-si_save(glue("Images/{plot_file_name_L}_{ref_id}.png"),
-        height = 8, width = 15)
 # end
