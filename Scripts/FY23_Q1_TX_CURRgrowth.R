@@ -1,6 +1,6 @@
 # PROJECT:  sidr-congo
 # AUTHOR:   J.Hoehner | USAID
-# PURPOSE:
+# PURPOSE:  How did TX_CURR grow in Q4 of FY22?
 # REF ID:   1c459613
 # LICENSE:  MIT
 # DATE:     2023-03-07
