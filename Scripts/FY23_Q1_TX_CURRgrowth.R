@@ -150,7 +150,7 @@
     df_growth_total %>%
         ggplot(aes(fct_reorder(psnu, results), results, fill = as.character(period))) +
         geom_col(na.rm = TRUE, alpha = .7, width = 1) +
-        geom_text(aes(label = gr_lab, y = results),
+        geom_text(aes(label = gr_lab, y = 0),
                   family = "Source Sans Pro", color = scooter, size = 9 / .pt,
                   vjust = .5, na.rm = TRUE) +
         coord_flip() +
@@ -179,7 +179,7 @@
     df_growth_adults %>%
         ggplot(aes(fct_reorder(psnu, results), results, fill = as.character(period))) +
         geom_col(na.rm = TRUE, alpha = .7, width = 1) +
-        geom_text(aes(label = gr_lab, y = results),
+        geom_text(aes(label = gr_lab, y = 0),
                   family = "Source Sans Pro", color = scooter, size = 9 / .pt,
                   vjust = .5, na.rm = TRUE) +
         coord_flip() +
@@ -192,7 +192,7 @@
             x = NULL, y = NULL,
             title = "PSNUs reporting more adults on ART had Q4 growth rates similar to that of
                      to the country overall while PSNUs reporting fewer adults on ART had much higher Q4 growth rates",
-            subtitle = glue("How did TX_CURR grow in the largest PSNUs in Q4 of FY22? | Age Group: Total"),
+            subtitle = glue("How did TX_CURR grow in the largest PSNUs in Q4 of FY22? | Age Group: Adults"),
             caption = glue("
                      Note: Adults = Ages 15+ and Children= Ages <15,
                      PSNUs limited by highest 20 reported TX_CURR results from FY22Q4
@@ -207,7 +207,7 @@
     df_growth_peds %>%
         ggplot(aes(fct_reorder(psnu, results), results, fill = as.character(period))) +
         geom_col(na.rm = TRUE, alpha = .7, width = 1) +
-        geom_text(aes(label = gr_lab, y = results),
+        geom_text(aes(label = gr_lab, y = 0),
                   family = "Source Sans Pro", color = scooter, size = 9 / .pt,
                   vjust = .5, na.rm = TRUE) +
         coord_flip() +
@@ -220,7 +220,7 @@
             x = NULL, y = NULL,
             title = "PSNUs reporting more children on ART had Q4 growth rates similar to that of
                      to the country overall while PSNUs reporting fewer children on ART had much higher Q4 growth rates",
-            subtitle = glue("How did TX_CURR grow in the largest PSNUs in Q4 of FY22? | Age Group: Total"),
+            subtitle = glue("How did TX_CURR grow in the largest PSNUs in Q4 of FY22? | Age Group: Children"),
             caption = glue("
                      Note: Adults = Ages 15+ and Children= Ages <15,
                      PSNUs limited by highest 20 reported TX_CURR results from FY22Q4
