@@ -59,7 +59,7 @@
                            ("Dolutegravir/Tenofovir/ Lamividine 50/300/300 mg ,90") |
                            ("Dolutegravir/Lamivudine/Tenofovir 50mg/300mg/300mg Tablets, 90 tablets") ~ "TLD90",
 
-            )
+            ))
         # reformat the dates
         # create the TLD standard categories from designation
 
