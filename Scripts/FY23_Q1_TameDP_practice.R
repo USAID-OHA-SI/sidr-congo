@@ -29,16 +29,16 @@
 # IMPORT ----------------------------------------------------------------------
 
     # dp w/o PSNUxIM tab
-    dp_path <- "Data/TaST/Target Setting Tool_Democratic Republic of the Congo_20230214211948.xlsx"
+    dp_path <- here::here("Data/TaST/Target Setting Tool_Democratic Republic of the Congo_20230214211948.xlsx")
 
     # read in Target Setting Tool & tidy
-    df_dp <- tame_dp(path)
+    df_dp <- tame_dp(dp_path)
 
     # read in PLHIV and SUB_NAT data from the Target Setting Tool
-    df_plhiv <- tame_dp(path, type = "PLHIV")
+    df_plhiv <- tame_dp(dp_path, type = "PLHIV")
 
     # get all the targets
-    df_all <- tame_dp(path, type = "ALL")
+    df_all <- tame_dp(dp_path, type = "ALL")
 
     # get the PSNUxIM tab without mech names/prime partner data
 
